@@ -11,18 +11,18 @@ class TFLPlugin(BasePlugin):
         self.tfl_road = TFLRoad()
         BasePlugin.__init__(self, *args, **kwargs)
 
-    @BasePlugin.respond_to('tfl tube me (?P<line>.*)')
+    @BasePlugin.respond_to('tfl tube (?P<line>.*)')
     def tfl_tube_me(self, message_data, line):
         """
-        tfl tube me ___: Get the status of the given tube line
+        tfl tube ___: Get the status of the given tube line
         """
         line_status = self.tfl_tube.get_line_status(line)
         mwp_room_client.send_notification(line_status)
 
-    @BasePlugin.respond_to('tfl road me (?P<road>.*)')
+    @BasePlugin.respond_to('tfl road (?P<road>.*)')
     def tfl_road_me(self, message_data, road):
         """
-        tfl road me ___: Get the status of the given road
+        tfl road ___: Get the status of the given road
         """
         road_status = self.tfl_road.get_road_status(road)
         mwp_room_client.send_notification(road_status)

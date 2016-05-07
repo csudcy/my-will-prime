@@ -14,12 +14,12 @@ class HUKDPlugin(BasePlugin):
         """deal me: Get a random hot UK deal!"""
         return mwp_room_client.send_notification(self.dealer.get_deal('random'))
 
-    @BasePlugin.respond_to('deal me hot')
+    @BasePlugin.respond_to('deal hot')
     def deal_hot(self, message_data):
-        """deal me hot: Get me the hottest hot UK deal!"""
+        """deal hot: Get me the hottest hot UK deal!"""
         return mwp_room_client.send_notification(self.dealer.get_deal('hot'))
 
-    @BasePlugin.respond_to('deal me new')
+    @BasePlugin.respond_to('deal new')
     def deal_new(self, message_data):
-        """deal me new: Get me the latest hot UK deal!"""
+        """deal new: Get me the latest hot UK deal!"""
         return mwp_room_client.send_notification(self.dealer.get_deal('new'))
