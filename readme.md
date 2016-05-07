@@ -92,6 +92,7 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
     * Words that have been used (& their definitions)
     * Actual letter frequency vs. guessed letter frequency
     * Correct guesses per person vs. incorrect
+* Wikipedia - doesnt show the normal URL summary :/ 
 
 
 ### To implement:
@@ -104,7 +105,6 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 * Search internet sites:
   * Sporcle
   * Wiktionary
-  * Wikipedia
   * XKCD
   * Dilbert
   * Nutscapes
