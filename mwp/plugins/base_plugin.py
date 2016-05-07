@@ -11,7 +11,7 @@ class BasePlugin(object):
 
     @classmethod
     def hear(cls, regex):
-        return cls.expose(regex)
+        return cls.expose(r'.*' + regex + r'.*')
 
     @classmethod
     def respond_to(cls, regex):
