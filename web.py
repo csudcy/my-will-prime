@@ -1,10 +1,14 @@
 import collections
 import json
 import os
+import traceback
 
-from ac_flask.hipchat import Addon, room_client, sender
+from ac_flask.hipchat import Addon, sender
 from flask import Flask
 from flask import request
+
+import plugins
+from mwp_client import mwp_room_client
 
 
 addon = Addon(
@@ -19,9 +23,13 @@ addon = Addon(
 )
 
 
+# Load all MWP plugins
+plugins.load_plugins()
+
+
 @addon.webhook(event='room_enter')
 def room_entered():
-    room_client.send_notification('hi: %s' % sender.name)
+    mwp_room_client.send_notification('hi: %s' % sender.name)
     return '', 204
 
 
@@ -55,30 +63,39 @@ def room_message():
         room_members_link=request.json['item']['room']['links']['members'],
         room_participants_link=request.json['item']['room']['links']['participants'],
     )
+    
+
+    try:
+        _process_message(message_data)
+    except Exception as ex:
+        tb = traceback.format_exc()
+        mwp_room_client.send_notification(
+            'Oh no, something went wrong!\n\n{tb}'.format(tb=tb),
+            color='red'
+        )
+
+
+def _process_message(message_data):
     if message_data.message_text == '/mwp json':
         # Return all the JSON info sent from Hipchat
         # TODO: Does this contain sensitive info?
         pretty_json = json.dumps(request.json, sort_keys=True, indent=2)
-        pretty_json = pretty_json.replace('\n', '<br/>')
-        print pretty_json
-        room_client.send_notification(pretty_json)
+        mwp_room_client.send_notification(pretty_json)
     elif message_data.message_text == '/mwp info':
         # Return the useful info sent from Hipchat
-        room_client.send_notification(str(message_data))
+        mwp_room_client.send_notification(str(message_data))
+    elif message_data.message_text == '/mwp exception':
+        # Throw an exception to test error handling
+        raise Exception('Here\'s your exception!')
     else:
-        # Process the message through my plugins
-        room_client.send_notification(
-            'TODO: Process room_message ({md.message_text})'.format(
-                md=message_data
-            )
-        )
+        plugins.process_message(message_data)
     return '', 204
 
 
 @addon.webhook(event='room_notification')
 def room_notification():
     print 'room_notification'
-    room_client.send_notification('room_notification')
+    mwp_room_client.send_notification('room_notification')
     return '', 204
 
 
