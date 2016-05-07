@@ -10,7 +10,7 @@ class UrbanDefinePlugin(BasePlugin):
         BasePlugin.__init__(self, *args, **kwargs)
 
     @BasePlugin.respond_to('slang (?P<word>[a-zA-Z\s]+)')
-    def slang(self, message, word):
+    def slang(self, message_data, word):
         """
         slang ___: Get the definition of a slang
         """

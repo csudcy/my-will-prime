@@ -10,7 +10,7 @@ class BusinessPlugin(BasePlugin):
         BasePlugin.__init__(self, *args, **kwargs)
 
     @BasePlugin.hear('business')
-    def hear_business(self, message):
+    def hear_business(self, message_data):
         """
         business: Get your favourite corporate strategems
         """

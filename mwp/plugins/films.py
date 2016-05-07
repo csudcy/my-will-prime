@@ -10,7 +10,7 @@ class FilmsPlugin(BasePlugin):
         BasePlugin.__init__(self, *args, **kwargs)
 
     @BasePlugin.respond_to('film me (?P<search_query>.*)')
-    def film_me(self, message, search_query):
+    def film_me(self, message_data, search_query):
         """
         film me ___: Find info about ___ from rotten tomatoes
         """

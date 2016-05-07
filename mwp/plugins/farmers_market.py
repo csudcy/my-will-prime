@@ -7,7 +7,7 @@ from mwp.plugins.base_plugin import BasePlugin
 class FarmersMarketPlugin(BasePlugin):
 
     @BasePlugin.hear('market')
-    def is_it_farmers_market_day(self, message):
+    def is_it_farmers_market_day(self, message_data):
         now = datetime.now()
         if now.weekday() in [3, 4]:
             return mwp_room_client.send_notification('YES IT\'S FARMERS\' MARKET DAY!')

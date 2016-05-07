@@ -3,14 +3,14 @@ import numpy as np
 
 
 OUTPUT_TEMPALTE = """<pre>
-=========
+=1234567=
 |{0}|
 |{1}|
 |{2}|
 |{3}|
 |{4}|
 |{5}|
-=========
+=1234567=
 </pre>"""
 
 
@@ -77,9 +77,9 @@ class Connect4(object):
         # Check the input
         letter = move[0]
         if letter == 'X' and self.x_to_play == False:
-            return 'Wait for your turn O!'
-        elif letter == 'O' and self.x_to_play == True:
             return 'Wait for your turn X!'
+        elif letter == 'O' and self.x_to_play == True:
+            return 'Wait for your turn O!'
 
         number = int(move[1])
         column = self.board[number-1]

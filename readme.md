@@ -60,3 +60,9 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 * `MONGOHQ_URL` - For connecting to [Mongo HQ](https://devcenter.heroku.com/articles/mongohq)
 * `REDISTOGO_URL` - For connecting to [Redis To Go](https://devcenter.heroku.com/articles/redistogo)
 * `WERKZEUG_RUN_MAIN` -  I think this is used internally by Werkzeug to determine if it is the master process
+
+
+### Todo
+
+* Connect4
+  * Didnt properly detect X win in cols 2345 (detected it when 6 was put in)

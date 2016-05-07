@@ -12,7 +12,7 @@ class TFLPlugin(BasePlugin):
         BasePlugin.__init__(self, *args, **kwargs)
 
     @BasePlugin.respond_to('tfl tube me (?P<line>.*)')
-    def tfl_tube_me(self, message, line):
+    def tfl_tube_me(self, message_data, line):
         """
         tfl tube me ___: Get the status of the given tube line
         """
@@ -20,7 +20,7 @@ class TFLPlugin(BasePlugin):
         mwp_room_client.send_notification(line_status)
 
     @BasePlugin.respond_to('tfl road me (?P<road>.*)')
-    def tfl_road_me(self, message, road):
+    def tfl_road_me(self, message_data, road):
         """
         tfl road me ___: Get the status of the given road
         """
