@@ -1,32 +1,33 @@
-import random
+import os
 
 import requests
 
 
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+if GOOGLE_API_KEY is None:
+    raise Exception('In order to use the Youtube plugin, you must set GOOGLE_API_KEY')
+
+
 class Youtube(object):
 
-    def find(self, search_query=None):
+    def find(self, search_query=None, count=10):
         # Query the API
         data = {
-            'v': 2,
-            'alt': 'json',
-            'racy': 'exclude',
-            "max-results": 1,
-            'start-index': random.randint(1, 10)
+            'part': 'snippet',
+            'safeSearch': 'moderate',
+            'maxResults': count,
+            'key': GOOGLE_API_KEY,
+            'type': 'video',
         }
         if search_query:
             data['q'] = search_query
-        response = requests.get('http://gdata.youtube.com/feeds/api/videos/', params=data)
+        response = requests.get('https://www.googleapis.com/youtube/v3/search', params=data)
 
-        # Find the video id
-        try:
-            result = response.json()['feed']['entry'][0]['id']['$t']
-        except Exception:
-            return None
-
-        # Return the full URL
-        id = result.split(':')[-1]
-        return 'https://www.youtube.com/embed/{id}?autoplay=1'.format(id=id)
+        # Return the video URLs
+        return [
+            'https://www.youtube.com/watch?v={id}'.format(id=item['id']['videoId'])
+            for item in response.json()['items']
+        ]
 
 if __name__ == '__main__':
     yt = Youtube()

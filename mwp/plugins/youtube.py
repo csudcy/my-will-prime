@@ -1,3 +1,5 @@
+import random
+
 from mwp.helpers.youtube import Youtube
 from mwp.mwp_client import mwp_room_client
 from mwp.plugins.base_plugin import BasePlugin
@@ -15,8 +17,22 @@ class YoutubePlugin(BasePlugin):
         youtube ___ : Search youtube for ___, and post a random one.
         """
 
-        result = self.youtube.find(search_query)
-        if result:
-            mwp_room_client.send_notification(result)
+        videos = self.youtube.find(search_query.strip())
+        if videos:
+            mwp_room_client.send_notification(random.choice(videos))
+        else:
+            mwp_room_client.send_notification('Why would anyone make a video about that?!')
+
+    @BasePlugin.respond_to('youtube5 (?P<search_query>.*)$')
+    def youtube5(self, message_data, search_query):
+        """
+        youtube5 ___ : Search youtube for ___, and post the top 5 results.
+        """
+
+        videos = self.youtube.find(search_query, count=5)
+        if videos:
+            # mwp_room_client.send_notification('\n'.join(videos))
+            for video in videos:
+                mwp_room_client.send_notification(video)
         else:
             mwp_room_client.send_notification('Why would anyone make a video about that?!')

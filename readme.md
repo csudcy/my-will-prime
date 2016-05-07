@@ -21,6 +21,10 @@ pip install -r requirements.txt
 export MWP_ADDON_KEY="my-will-prime"
 export MWP_ADDON_NAME="My Will Prime"
 export MWP_BASE_URL="https://my-will-prime-<your-username>.c9users.io"
+
+# export HUKD_API_KEY="..."
+# export GOOGLE_API_KEY="..."
+
 python -m mwp
 ```
 
@@ -39,6 +43,9 @@ python -m mwp
   * `MWP_ADDON_KEY` - The key for this addon
   * `MWP_ADDON_NAME` - The description for this addon
   * `MWP_BASE_URL` - The URL which this addon can be accessed at
+* Some plugins need an API key:
+  * `GOOGLE_API_KEY` - For searching Youtube
+  * `HUKD_API_KEY` - For getting Hot UK Deals
 
 
 ## AC-Flask-Hipchat
@@ -73,7 +80,6 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 ### To fix:
 * Connect4
   * Didnt properly detect X win in cols 2345 (detected it when 6 was put in)
-* Youtube - it doesnt work anymore!
 
 
 ### To improve:
