@@ -31,7 +31,7 @@ class PluginRegistry(object):
 
             # Check it is a non-private python file
             file_name, file_ext = os.path.splitext(file_path)
-            if file_ext not in ('.py', '.pyc') or file_name[:2] == '__':
+            if file_ext not in ('.py', '.pyc') or file_name[:2] in ('__', '.~'):
                 continue
 
             module_names.add(file_name)
