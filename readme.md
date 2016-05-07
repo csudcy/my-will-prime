@@ -21,7 +21,7 @@ pip install -r requirements.txt
 export MWP_ADDON_KEY="my-will-prime"
 export MWP_ADDON_NAME="My Will Prime"
 export MWP_BASE_URL="https://my-will-prime-<your-username>.c9users.io"
-python web.py
+python -m mwp
 ```
 
 

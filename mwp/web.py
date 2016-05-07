@@ -7,8 +7,8 @@ from ac_flask.hipchat import Addon, sender
 from flask import Flask
 from flask import request
 
-import plugins
-from mwp_client import mwp_room_client
+from mwp.plugins import plugin_registry
+from mwp.mwp_client import mwp_room_client
 
 
 addon = Addon(
@@ -24,7 +24,7 @@ addon = Addon(
 
 
 # Load all MWP plugins
-plugins.load_plugins()
+plugin_registry.load_plugins()
 
 
 @addon.webhook(event='room_enter')
@@ -74,6 +74,9 @@ def room_message():
             color='red'
         )
 
+    # Always return something
+    return '', 204
+
 
 def _process_message(message_data):
     if message_data.message_text == '/mwp json':
@@ -88,8 +91,7 @@ def _process_message(message_data):
         # Throw an exception to test error handling
         raise Exception('Here\'s your exception!')
     else:
-        plugins.process_message(message_data)
-    return '', 204
+        plugin_registry.process_message(message_data)
 
 
 @addon.webhook(event='room_notification')
@@ -99,8 +101,12 @@ def room_notification():
     return '', 204
 
 
-if __name__ == '__main__':
+def main():
     addon.run(
         host=os.environ.get('MWP_HOST', '0.0.0.0'),
         port=os.environ.get('MWP_PORT', 8080),
     )
+
+
+if __name__ == '__main__':
+    main()
