@@ -1,33 +1,72 @@
+import inspect
+import os
 import re
 
+from mwp.plugins import base_plugin
 from mwp.mwp_client import mwp_room_client
 
 
 class PluginRegistry(object):
-    plugin_funcs = []
+    _responders = []
 
     def load_plugins(self):
-        # TODO: Load all plugins in the directory
         # TODO: Load other plugins
         # TODO: Blacklist
-        from mwp.plugins import blarg
-        plugin = blarg.BlargPlugin()
-        for regex, func in plugin.exposed_methods:
-            print regex, func
-            self.plugin_funcs.append((regex, func))
+        plugin_path = os.path.dirname(__file__)
+        module_names = self._get_module_names(plugin_path)
+        modules = self._get_modules(module_names)
+        classes = self._get_classes(modules)
+        plugins = self._get_plugins(classes)
+        self._add_responders(plugins)
+
+    def _get_module_names(self, path):
+        # Iterate over all files in path looking for python files
+        # Have to make sure these are unique or it will import twice (once for py, once for pyc)
+        module_names = set()
+        for file_path in os.listdir(path):
+            # Check this is a file
+            full_path = os.path.join(path, file_path)
+            if not os.path.isfile(full_path):
+                continue
+
+            # Check it is a non-private python file
+            file_name, file_ext = os.path.splitext(file_path)
+            if file_ext not in ('.py', '.pyc') or file_name[:2] == '__':
+                continue
+
+            module_names.add(file_name)
+        return list(module_names)
+
+    def _get_modules(self, module_names):
+        for module_name in module_names:
+            # Import that file
+            module = __import__('mwp.plugins', locals(), globals(), [module_name])
+            yield getattr(module, module_name)
+
+    def _get_classes(self, modules):
+        # Iterate over the modules and find all plugin classes
+        for module in modules:
+            classes = inspect.getmembers(module, predicate=inspect.isclass)
+            for name, klass in classes:
+                if issubclass(klass, base_plugin.BasePlugin) and klass != base_plugin.BasePlugin:
+                    yield klass
+
+    def _get_plugins(self, classes):
+        # Create instances of all the given plugin classes
+        for klass in classes:
+            yield klass()
+
+    def _add_responders(self, plugins):
+        # Iterate over the plugins and add all responders to my registry
+        for plugin in plugins:
+            for regex, func in plugin.exposed_methods:
+                self._responders.append((regex, func))
 
     def process_message(self, message_data):
         # Process the message through my plugins
-        for regex, func in self.plugin_funcs:
+        for regex, func in self._responders:
             if re.match(regex, message_data.message_text):
                 func(message_data)
-
-        # print self.plugin_funcs
-        # mwp_room_client.send_notification(
-        #     'TODO: Process room_message ({md.message_text})'.format(
-        #         md=message_data
-        #     )
-        # )
 
 
 plugin_registry = PluginRegistry()
