@@ -75,5 +75,12 @@ class PluginRegistry(object):
             if match:
                 func(message_data, **match.groupdict())
 
+    def get_responders(self, filter):
+        return [
+            (regex, func.__doc__)
+            for regex, func in sorted(self._responders, key=lambda x: x[0])
+            if re.match(filter, regex) and func.__doc__
+        ]
+
 
 plugin_registry = PluginRegistry()

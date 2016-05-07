@@ -69,9 +69,12 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 
 ## Todo
 
+
 ### To fix:
 * Connect4
   * Didnt properly detect X win in cols 2345 (detected it when 6 was put in)
+* Youtube - it doesnt work anymore!
+
 
 ### To improve:
 * Hangman
@@ -83,6 +86,7 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
     * Words that have been used (& their definitions)
     * Actual letter frequency vs. guessed letter frequency
     * Correct guesses per person vs. incorrect
+
 
 ### To implement:
 * Text FX:

@@ -11,7 +11,9 @@ class YoutubePlugin(BasePlugin):
 
     @BasePlugin.respond_to('youtube me (?P<search_query>.*)$')
     def youtube_me(self, message_data, search_query):
-        """youtube me ___ : Search youtube for ___, and post a random one."""
+        """
+        youtube me ___ : Search youtube for ___, and post a random one.
+        """
 
         result = self.youtube.find(search_query)
         if result:

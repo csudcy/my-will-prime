@@ -12,14 +12,14 @@ class UUIDPlugin(BasePlugin):
     @BasePlugin.respond_to('uuid')
     def uuid_single(self, message_data):
         """
-        uuid me: Generate a UUID v4
+        uuid: Generate a UUID v4
         """
         mwp_room_client.send_notification(str(uuid.uuid4()))
 
     @BasePlugin.respond_to('uuid (?P<count>\d+)')
     def uuid_many(self, message_data, count):
         """
-        uuid me: Generate a UUID v4
+        uuid {N}: Generate {N} UUID v4's
         """
         uuids = [
             str(uuid.uuid4())
