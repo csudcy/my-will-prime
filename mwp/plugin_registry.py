@@ -76,10 +76,11 @@ class PluginRegistry(object):
                 func(message_data, **match.groupdict())
 
     def get_responders(self, filter):
+        filter_re = r'.*%s.*' % filter.strip()
         return [
             (regex, func.__doc__)
             for regex, func in sorted(self._responders, key=lambda x: x[0])
-            if re.match(filter, regex) and func.__doc__
+            if re.match(filter_re, regex)
         ]
 
 
