@@ -21,8 +21,9 @@ class UUIDPlugin(BasePlugin):
         """
         uuid {N}: Generate {N} UUID v4's
         """
+        count = max(0, min(20, int(count)))
         uuids = [
             str(uuid.uuid4())
-            for i in xrange(int(count))
+            for i in xrange(count)
         ]
         mwp_room_client.send_notification('\n'.join(uuids))
