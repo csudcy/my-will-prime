@@ -1,4 +1,6 @@
 *.py[cod]
-data/
+mongo_data/
 mongod
 
+# Old files for porting over
+to-fix
