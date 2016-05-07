@@ -1,9 +1,9 @@
-## My Will Prime
+# My Will Prime
 
 This is a re-implementation of [my-will](https://github.com/csudcy/my-will) using the HipChat Connect API.
 
 
-### Running on Cloud9
+## Running on Cloud9
 
 ```bash
 # Setup mongodb - https://community.c9.io/t/setting-up-mongodb/1717
@@ -25,7 +25,12 @@ python -m mwp
 ```
 
 
-### Configuration
+## Running on Heroku
+
+**TODO**
+
+
+## Configuration
 
 `My Will Prime` is configured via environment variables. The configuration options are:
 * `MWP_HOST` (default: `0.0.0.0`) - The host IP to bind to
@@ -36,14 +41,14 @@ python -m mwp
   * `MWP_BASE_URL` - The URL which this addon can be accessed at
 
 
-### AC-Flask-Hipchat
+## AC-Flask-Hipchat
 
 Will Prime is based on [ac-flask-hipchat](https://bitbucket.org/atlassianlabs/ac-flask-hipchat), a [Flask](http://flask.pocoo.org/) based webserver which makes [Hipchat Connect](https://developer.atlassian.com/hipchat) based interaction easy.
 
 However, I cannot find any documentation for it. Therefore, I will try to write down what I find here.
 
 
-#### Configuration
+### Configuration
 
 Configuration is done via environment variables. Any variable prefixed with `AC_` will be loaded into `app.config`. The variables used by ac-flask-hipchat are:
 
@@ -62,7 +67,45 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 * `WERKZEUG_RUN_MAIN` -  I think this is used internally by Werkzeug to determine if it is the master process
 
 
-### Todo
+## Todo
 
+### To fix:
 * Connect4
   * Didnt properly detect X win in cols 2345 (detected it when 6 was put in)
+
+### To improve:
+* Hangman
+  * Make it look better
+  * Persist over restart
+  * Keep stats
+    * Word length vs. guesses taken
+    * Correct vs. incorrect guesses
+    * Words that have been used (& their definitions)
+    * Actual letter frequency vs. guessed letter frequency
+    * Correct guesses per person vs. incorrect
+
+### To implement:
+* Text FX:
+  * Lorem ipsum
+  * Hodor
+* Lists & searching (admin through web?):
+  * Board Games
+  * Lunch
+* Search internet sites:
+  * Sporcle
+  * Wiktionary
+  * Wikipedia
+  * XKCD
+  * Dilbert
+  * Nutscapes
+* Basic responders:
+  * War games
+  * Word of the day
+  * Hello
+  * Goodbye
+* Random:
+  * In a specific room, set a random topic every 10 minutes from chatoms
+  * Rage
+  * Random rage
+  * Random refusal to work
+  * Willisms
