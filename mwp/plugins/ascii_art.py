@@ -1,5 +1,5 @@
-from mwp.mwp_client import mwp_room_client
 from mwp.helpers.ascii_art import ASCIIArt
+from mwp.mwp_client import mwp_room_client
 from mwp.plugins.base_plugin import BasePlugin
 
 

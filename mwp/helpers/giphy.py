@@ -1,7 +1,7 @@
 import requests
 import random
 
-class GifMeUpScotty(object):
+class Giphy(object):
 
     def find(self, search_query):
         data = {
@@ -15,7 +15,7 @@ class GifMeUpScotty(object):
 
 
 if __name__ == '__main__':
-    gm = GifMeUpScotty()
+    gm = Giphy()
     print gm.find('nic cage')
     print gm.find('asa sdfads fads fdsaf dasf adsf adsf dsaf adsfsadF ASDGEWAdfasdf')
     print gm.find('extreme sports')
