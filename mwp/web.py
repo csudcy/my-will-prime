@@ -7,7 +7,7 @@ from ac_flask.hipchat import Addon, sender
 from flask import Flask
 from flask import request
 
-from mwp.plugins import plugin_registry
+from mwp.plugin_registry import plugin_registry
 from mwp.mwp_client import mwp_room_client
 
 

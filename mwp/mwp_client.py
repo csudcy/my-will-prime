@@ -6,8 +6,7 @@ class MWPRoomClient(object):
     @staticmethod
     def send_notification(
             message,
-            #html, text
-            message_format='text',
+            html=False,
             # yellow, green, red, purple, gray, random.
             color='purple',
             # True, False
@@ -19,7 +18,7 @@ class MWPRoomClient(object):
             url,
             {
                 'message': message,
-                'message_format': message_format,
+                'message_format': ('html' if html else 'text'),
                 'color': color,
                 'notify': notify,
             },

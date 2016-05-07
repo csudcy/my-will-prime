@@ -3,11 +3,19 @@ import inspect
 
 class BasePlugin(object):
     @classmethod
-    def expose(self, regex):
+    def expose(cls, regex):
         def register_inner(func):
             func.plugin_regex = regex
             return func
         return register_inner
+
+    @classmethod
+    def hear(cls, regex):
+        return cls.expose(regex)
+
+    @classmethod
+    def respond_to(cls, regex):
+        return cls.expose(r'^/mwp ' + regex + r'$')
 
     @property
     def exposed_methods(self):
