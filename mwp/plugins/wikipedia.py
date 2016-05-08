@@ -5,14 +5,14 @@ from mwp.mwp_client import mwp_room_client
 from mwp.plugins.base_plugin import BasePlugin
 
 
-class YoutubePlugin(BasePlugin):
+class WikipediaPlugin(BasePlugin):
 
     def __init__(self, *args, **kwargs):
         self.wikipedia = Wikipedia()
         BasePlugin.__init__(self, *args, **kwargs)
 
     @BasePlugin.respond_to('wiki (?P<search_query>.*)$')
-    def youtube_me(self, message_data, search_query):
+    def wikipedia_me(self, message_data, search_query):
         """
         wiki ___ : Search wikipedia for ___, and post the first result.
         """
