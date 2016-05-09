@@ -96,13 +96,6 @@ def _process_message(message_data):
         plugin_registry.process_message(message_data)
 
 
-@addon.webhook(event='room_notification')
-def room_notification():
-    print 'room_notification'
-    mwp_room_client.send_notification('room_notification')
-    return '', 204
-
-
 def main():
     addon.run(
         host=os.environ.get('MWP_HOST', '0.0.0.0'),
