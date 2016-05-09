@@ -11,6 +11,6 @@ class ASCIIPlugin(BasePlugin):
 
     @BasePlugin.respond_to(r'ascii (?P<text>.*?)')
     def ascii_me(self, message_data, text=None):
-        "ascii ___: Say ___ using a random ascii font"
+        "%TRIGGER% ascii ___: Say ___ using a random ascii font"
         art = self.ascii_art.render(text)
         mwp_room_client.send_notification('<pre>%s</pre>' % art, html=True)

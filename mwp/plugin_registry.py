@@ -9,14 +9,14 @@ from mwp.mwp_client import mwp_room_client
 class PluginRegistry(object):
     _responders = []
 
-    def load_plugins(self):
+    def load_plugins(self, app):
         # TODO: Load other plugins
         # TODO: Blacklist
         plugin_path = os.path.join(os.path.dirname(__file__), 'plugins')
         module_names = self._get_module_names(plugin_path)
         modules = self._get_modules(module_names)
         classes = self._get_classes(modules)
-        plugins = self._get_plugins(classes)
+        plugins = self._get_plugins(classes, app)
         self._add_responders(plugins)
 
     def _get_module_names(self, path):
@@ -57,10 +57,10 @@ class PluginRegistry(object):
                 if issubclass(klass, base_plugin.BasePlugin) and klass != base_plugin.BasePlugin:
                     yield klass
 
-    def _get_plugins(self, classes):
+    def _get_plugins(self, classes, app):
         # Create instances of all the given plugin classes
         for klass in classes:
-            yield klass()
+            yield klass(app)
 
     def _add_responders(self, plugins):
         # Iterate over the plugins and add all responders to my registry
@@ -75,11 +75,18 @@ class PluginRegistry(object):
             if match:
                 func(message_data, **match.groupdict())
 
-    def get_responders(self, filter):
+    def get_responders(self, app, filter=''):
         filter_re = r'.*%s.*' % filter.strip()
+        def get_doc(func):
+            if func.__doc__:
+                return func.__doc__.strip().replace(
+                    '%TRIGGER%',
+                    app.config.get('TRIGGER', '/mwp')
+                )
+            return func.__doc__
         return [
-            (regex, func.__doc__)
-            for regex, func in sorted(self._responders, key=lambda x: x[0])
+            (regex, get_doc(func))
+            for regex, func in self._responders
             if re.match(filter_re, regex)
         ]
 

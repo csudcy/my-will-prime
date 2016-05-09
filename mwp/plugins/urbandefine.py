@@ -9,9 +9,9 @@ class UrbanDefinePlugin(BasePlugin):
         self.dictionary = UrbanDictionary()
         BasePlugin.__init__(self, *args, **kwargs)
 
-    @BasePlugin.respond_to('slang (?P<word>[a-zA-Z\s]+)')
+    @BasePlugin.respond_to(r'slang (?P<word>[a-zA-Z\s]+)')
     def slang(self, message_data, word):
         """
-        slang ___: Get the definition of a slang
+        %TRIGGER% slang ___: Get the definition of a slang
         """
         return mwp_room_client.send_notification(self.dictionary.get_definition(word))

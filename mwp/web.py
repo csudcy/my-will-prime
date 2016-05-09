@@ -11,8 +11,9 @@ from mwp.plugin_registry import plugin_registry
 from mwp.mwp_client import mwp_room_client
 
 
+app=Flask(__name__)
 addon = Addon(
-    app=Flask(__name__),
+    app=app,
     allow_room=True,
     scopes=[
         'send_notification',
@@ -24,7 +25,7 @@ addon = Addon(
 
 
 # Load all MWP plugins
-plugin_registry.load_plugins()
+plugin_registry.load_plugins(app)
 
 
 @addon.webhook(event='room_enter')
@@ -63,7 +64,6 @@ def room_message():
         room_members_link=request.json['item']['room']['links']['members'],
         room_participants_link=request.json['item']['room']['links']['participants'],
     )
-    
 
     try:
         _process_message(message_data)
@@ -79,6 +79,8 @@ def room_message():
 
 
 def _process_message(message_data):
+    print '\n' * 5
+    print message_data.message_text
     if message_data.message_text == '/mwp json':
         # Return all the JSON info sent from Hipchat
         # TODO: Does this contain sensitive info?

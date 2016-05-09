@@ -22,6 +22,7 @@ export MWP_ADDON_KEY="my-will-prime"
 export MWP_ADDON_NAME="My Will Prime"
 export MWP_BASE_URL="https://my-will-prime-<your-username>.c9users.io"
 
+# export MWP_TRIGGER="..."
 # export HUKD_API_KEY="..."
 # export GOOGLE_API_KEY="..."
 
@@ -39,6 +40,7 @@ python -m mwp
 `My Will Prime` is configured via environment variables. The configuration options are:
 * `MWP_HOST` (default: `0.0.0.0`) - The host IP to bind to
 * `MWP_PORT` (default: `8080`) - The post to bind to
+* `MWP_TRIGGER` (default `/mwp`) - The text to prefix most plugin triggers with
 * All the `ac-flask-hipchat` options listed below but prefixed with `MWP_` instead of `AC_`. The options you should set are:
   * `MWP_ADDON_KEY` - The key for this addon
   * `MWP_ADDON_NAME` - The description for this addon
@@ -72,6 +74,13 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 * `MONGOHQ_URL` - For connecting to [Mongo HQ](https://devcenter.heroku.com/articles/mongohq)
 * `REDISTOGO_URL` - For connecting to [Redis To Go](https://devcenter.heroku.com/articles/redistogo)
 * `WERKZEUG_RUN_MAIN` -  I think this is used internally by Werkzeug to determine if it is the master process
+
+
+## Writing Plugins
+
+Some brief notes:
+* When writing a plugin, you can use `%TRIGGER%` in the regex and it will be substituted for the `MWP_TRIGGER` environment variable
+* You can also use `%TRIGGER%` in doc strings
 
 
 ## Todo

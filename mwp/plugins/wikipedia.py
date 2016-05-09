@@ -11,10 +11,10 @@ class WikipediaPlugin(BasePlugin):
         self.wikipedia = Wikipedia()
         BasePlugin.__init__(self, *args, **kwargs)
 
-    @BasePlugin.respond_to('wiki (?P<search_query>.*)$')
+    @BasePlugin.respond_to(r'wiki (?P<search_query>.*)$')
     def wikipedia_me(self, message_data, search_query):
         """
-        wiki ___ : Search wikipedia for ___, and post the first result.
+        %TRIGGER% wiki ___ : Search wikipedia for ___, and post the first result.
         """
 
         result = self.wikipedia.find(search_query.strip())

@@ -9,16 +9,16 @@ class DefinePlugin(BasePlugin):
         self.dictionary = Dictionary()
         BasePlugin.__init__(self, *args, **kwargs)
 
-    @BasePlugin.respond_to('define')
+    @BasePlugin.respond_to(r'define')
     def define_random(self, message_data):
         """
-        define: Get the definition of a random word
+        %TRIGGER% define: Get the definition of a random word
         """
         return mwp_room_client.send_notification(self.dictionary.get_random_definition())
 
-    @BasePlugin.respond_to('define (?P<word>[a-zA-Z]+)')
+    @BasePlugin.respond_to(r'define (?P<word>[a-zA-Z]+)')
     def define(self, message_data, word):
         """
-        define ___: Get the definition of ___
+        %TRIGGER% define ___: Get the definition of ___
         """
         return mwp_room_client.send_notification(self.dictionary.get_definition(word))

@@ -9,17 +9,17 @@ class HUKDPlugin(BasePlugin):
         self.dealer = Dealer()
         BasePlugin.__init__(self, *args, **kwargs)
 
-    @BasePlugin.respond_to('deal me')
+    @BasePlugin.respond_to(r'deal me')
     def deal_random(self, message_data):
-        """deal me: Get a random hot UK deal!"""
+        """%TRIGGER% deal me: Get a random hot UK deal!"""
         return mwp_room_client.send_notification(self.dealer.get_deal('random'))
 
-    @BasePlugin.respond_to('deal hot')
+    @BasePlugin.respond_to(r'deal hot')
     def deal_hot(self, message_data):
-        """deal hot: Get me the hottest hot UK deal!"""
+        """%TRIGGER% deal hot: Get me the hottest hot UK deal!"""
         return mwp_room_client.send_notification(self.dealer.get_deal('hot'))
 
-    @BasePlugin.respond_to('deal new')
+    @BasePlugin.respond_to(r'deal new')
     def deal_new(self, message_data):
-        """deal new: Get me the latest hot UK deal!"""
+        """%TRIGGER% deal new: Get me the latest hot UK deal!"""
         return mwp_room_client.send_notification(self.dealer.get_deal('new'))

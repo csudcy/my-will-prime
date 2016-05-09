@@ -1,6 +1,6 @@
 *.py[cod]
 mongo_data/
-mongod
+setup_c9.sh
 
 # Old files for porting over
 to-fix

@@ -11,10 +11,10 @@ class YoutubePlugin(BasePlugin):
         self.youtube = Youtube()
         BasePlugin.__init__(self, *args, **kwargs)
 
-    @BasePlugin.respond_to('youtube (?P<search_query>.*)$')
+    @BasePlugin.respond_to(r'youtube (?P<search_query>.*)$')
     def youtube_me(self, message_data, search_query):
         """
-        youtube ___ : Search youtube for ___, and post a random one.
+        %TRIGGER% youtube ___ : Search youtube for ___, and post a random one.
         """
 
         videos = self.youtube.find(search_query.strip())
@@ -23,10 +23,10 @@ class YoutubePlugin(BasePlugin):
         else:
             mwp_room_client.send_notification('Why would anyone make a video about that?!')
 
-    @BasePlugin.respond_to('youtube5 (?P<search_query>.*)$')
+    @BasePlugin.respond_to(r'youtube5 (?P<search_query>.*)$')
     def youtube5(self, message_data, search_query):
         """
-        youtube5 ___ : Search youtube for ___, and post the top 5 results.
+        %TRIGGER% youtube5 ___ : Search youtube for ___, and post the top 5 results.
         """
 
         videos = self.youtube.find(search_query, count=5)

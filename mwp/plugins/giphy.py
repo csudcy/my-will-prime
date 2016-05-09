@@ -9,9 +9,9 @@ class GiphyPlugin(BasePlugin):
         self.giphy = Giphy()
         BasePlugin.__init__(self, *args, **kwargs)
 
-    @BasePlugin.respond_to('giphy (?P<search_query>.*)$')
+    @BasePlugin.respond_to(r'giphy (?P<search_query>.*)$')
     def gif_me(self, message_data, search_query):
-        """giphy ___ : Search Giphy for ___"""
+        """%TRIGGER% giphy ___ : Search Giphy for ___"""
 
         result = self.giphy.find(search_query.strip())
         if result:
