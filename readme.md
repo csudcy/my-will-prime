@@ -102,6 +102,9 @@ Some brief notes:
     * Actual letter frequency vs. guessed letter frequency
     * Correct guesses per person vs. incorrect
 * Wikipedia - doesnt show the normal URL summary :/ 
+* Remind Me
+  * Actually set reminders!
+  * Make summarising with tomorrow work
 
 
 ### To implement:
