@@ -90,6 +90,12 @@ class RemindMe(object):
             del store[index]
         self.save_data(store)
 
+    def clear(self):
+        """
+        Clear all reminders
+        """
+        self.save_data([])
+
 
 if __name__ == '__main__':
     import pickle

@@ -1,11 +1,13 @@
 import inspect
+import pickle
+
+from ac_flask.hipchat.db import mongo
 
 
 class BasePlugin(object):
 
     def __init__(self, app):
         self.app = app
-        self._data_store = {}
 
     def _get_key(self, key):
         return '{prefix}__{key}'.format(
@@ -15,11 +17,19 @@ class BasePlugin(object):
 
     def load_data(self, default=None, key='default'):
         key = self._get_key(key)
-        return self._data_store.get(key, default)
+        mongo_doc = mongo.mwp.find_one({'key': key})
+        if mongo_doc:
+            return pickle.loads(mongo_doc['data'])
+        else:
+            return default
 
     def save_data(self, data, key='default'):
         key = self._get_key(key)
-        self._data_store[key] = data
+        mongo.mwp.replace_one(
+            {'key': key},
+            {'key': key, 'data': pickle.dumps(data)},
+            upsert=True
+        )
 
     @classmethod
     def expose(cls, regex):

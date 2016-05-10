@@ -92,8 +92,6 @@ Some brief notes:
 
 
 ### To improve:
-* Base
-  * Persist data store in mongo
 * Remind Me
   * Actually send reminders!
   * Make summarising with tomorrow work

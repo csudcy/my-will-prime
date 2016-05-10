@@ -33,8 +33,13 @@ class RemindMePlugin(BasePlugin):
             mwp_room_client.send_notification(HELP_MESSAGE, html=True)
             return
 
-        if info == 'stats':
+        if info == '!stats':
             mwp_room_client.send_notification(self._get_stats_message(), html=True)
+            return
+
+        if info == '!clear':
+            self.remindme.clear()
+            mwp_room_client.send_notification('Reminders cleared!', html=True)
             return
 
         reminder_info = self.remindme.add_reminder(message_data, info)
