@@ -1,5 +1,6 @@
 import random
 import re
+
 from dictionary import Dictionary
 
 HANGMAN_STATES = [

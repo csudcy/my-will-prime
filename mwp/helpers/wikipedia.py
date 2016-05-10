@@ -1,5 +1,3 @@
-# https://en.wikipedia.org/w/api.php?
-
 import requests
 
 

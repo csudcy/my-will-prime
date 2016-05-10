@@ -5,6 +5,21 @@ class BasePlugin(object):
 
     def __init__(self, app):
         self.app = app
+        self._data_store = {}
+
+    def _get_key(self, key):
+        return '{prefix}__{key}'.format(
+            prefix=self.__class__.__name__,
+            key=key
+        )
+
+    def load_data(self, default=None, key='default'):
+        key = self._get_key(key)
+        return self._data_store.get(key, default)
+
+    def save_data(self, data, key='default'):
+        key = self._get_key(key)
+        self._data_store[key] = data
 
     @classmethod
     def expose(cls, regex):

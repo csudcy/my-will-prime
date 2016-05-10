@@ -22,7 +22,7 @@ For example:<br/>
 class RemindMePlugin(BasePlugin):
 
     def __init__(self, *args, **kwargs):
-        self.remindme = RemindMe()
+        self.remindme = RemindMe(self.load_data, self.save_data)
         BasePlugin.__init__(self, *args, **kwargs)
 
     @BasePlugin.expose('^!remindme (?P<info>.+)$')
@@ -31,6 +31,10 @@ class RemindMePlugin(BasePlugin):
 
         if info == 'help':
             mwp_room_client.send_notification(HELP_MESSAGE, html=True)
+            return
+
+        if info == 'stats':
+            mwp_room_client.send_notification(self._get_stats_message(), html=True)
             return
 
         reminder_info = self.remindme.add_reminder(message_data, info)
@@ -47,4 +51,29 @@ class RemindMePlugin(BasePlugin):
                     md=message_data,
                     summary=self.remindme.summarise(reminder_info),
                 )
+            )
+
+    def _get_stats_message(self):
+        reminder_infos = self.remindme.get_reminders()
+
+        if not reminder_infos:
+            mwp_room_client.send_notification(
+                'There are no reminders set yet!'
+            )
+        else:
+            output = ['These are the reminders I know about:']
+            for reminder_info in reminder_infos:
+                output.append(
+                    ' :: '.join([
+                        reminder_info['message']['user_mention_name'],
+                        reminder_info['message']['room_name'],
+                        reminder_info['description'],
+                        reminder_info['datetime'].isoformat(),
+                        self.remindme.summarise(reminder_info),
+                    ])
+                )
+
+            mwp_room_client.send_notification(
+                '<br/>\n'.join(output),
+                html=True
             )

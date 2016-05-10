@@ -92,6 +92,11 @@ Some brief notes:
 
 
 ### To improve:
+* Base
+  * Persist data store in mongo
+* Remind Me
+  * Actually send reminders!
+  * Make summarising with tomorrow work
 * Hangman
   * Make it look better
   * Persist over restart
@@ -102,9 +107,6 @@ Some brief notes:
     * Actual letter frequency vs. guessed letter frequency
     * Correct guesses per person vs. incorrect
 * Wikipedia - doesnt show the normal URL summary :/ 
-* Remind Me
-  * Actually set reminders!
-  * Make summarising with tomorrow work
 
 
 ### To implement:
