@@ -115,7 +115,7 @@ Some brief notes:
   * Board Games
   * Lunch
 * Search internet sites:
-  * Sporcle
+  * Sporcle - no API!
   * Wiktionary
   * XKCD
   * Dilbert

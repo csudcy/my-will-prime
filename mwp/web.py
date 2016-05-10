@@ -28,12 +28,6 @@ addon = Addon(
 plugin_registry.load_plugins(app)
 
 
-@addon.webhook(event='room_enter')
-def room_entered():
-    mwp_room_client.send_notification('hi: %s' % sender.name)
-    return '', 204
-
-
 MessageInfo = collections.namedtuple(
     'MessageInfo',
     (
