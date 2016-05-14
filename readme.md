@@ -32,7 +32,25 @@ python -m mwp
 
 ## Running on Heroku
 
-**TODO**
+* Create your app
+* Link it to [MWP on GitHub](https://github.com/csudcy/my-will-prime) (or your fork or however you want to deploy)
+* Add the [buildpack](https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-python)
+* Add addons:
+  * [mLab](https://elements.heroku.com/addons/mongolab)
+  * [Redis To Go](https://elements.heroku.com/addons/redistogo)
+* Setup config vars (see `Running on Cloud9` for vars you need to set)
+* Deploy
+* Open your deployment in a browser; you should see a JSON document describing MWP
+
+
+## Installing on Hipchat
+
+
+* Go to your integrations administration page `https://<your_group>.hipchat.com/addons/`
+* Scroll to the bottom
+* Click `Install an integration from a descriptor URL`
+* Enter the URL where your MWP instance is running
+* Click Ok to everything
 
 
 ## Configuration
@@ -71,8 +89,9 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 * `AC_BASE_URL` - The URL which this addon can be accessed at
 * `AC_CORS_WHITELIST` - Something relating to cross origin requests
 * All the [Flask config options](http://flask.pocoo.org/docs/0.10/config/#builtin-configuration-values)
-* `MONGOHQ_URL` - For connecting to [Mongo HQ](https://devcenter.heroku.com/articles/mongohq)
-* `REDISTOGO_URL` - For connecting to [Redis To Go](https://devcenter.heroku.com/articles/redistogo)
+* `MONGOHQ_URL` - For connecting to [Compose MongoDB](https://elements.heroku.com/addons/mongohq)
+  * If set, MWP will copy `MONGODB_URI` into `MONGOHQ_URL` so you can also use [mLab](https://elements.heroku.com/addons/mongolab)
+* `REDISTOGO_URL` - For connecting to [Redis To Go](https://elements.heroku.com/addons/redistogo)
 * `WERKZEUG_RUN_MAIN` -  I think this is used internally by Werkzeug to determine if it is the master process
 
 
@@ -108,6 +127,7 @@ Some brief notes:
 
 
 ### To implement:
+* Room display integration
 * Text FX:
   * Lorem ipsum
   * Hodor

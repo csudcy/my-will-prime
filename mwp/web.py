@@ -11,6 +11,14 @@ from mwp.plugin_registry import plugin_registry
 from mwp.mwp_client import mwp_room_client
 
 
+# Ac-flask-hipchat is hardcoded to check for MongoHQ env var.
+# To be able to use other addons (e.g. mLab), copy their env var to the MongoHQ var
+if not os.environ.get('MONGOHQ_URL'):
+    # Try mLab instead
+    if os.environ.get('MONGODB_URI'):
+        os.environ['MONGOHQ_URL'] = os.environ.get('MONGODB_URI')
+
+
 app=Flask(__name__)
 addon = Addon(
     app=app,
