@@ -99,7 +99,7 @@ def _process_message(message_data):
 
 
 def main():
-    port = os.environ.get('MWP_PORT', 8080)
+    port = os.environ.get('MWP_PORT', '8080')
     print os.environ
     if 'DYNO' in os.environ:
         # Running on Heroku; us $PORT
@@ -108,7 +108,7 @@ def main():
 
     addon.run(
         host=os.environ.get('MWP_HOST', '0.0.0.0'),
-        port=port,
+        port=int(port),
     )
 
 
