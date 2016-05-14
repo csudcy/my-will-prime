@@ -100,8 +100,10 @@ def _process_message(message_data):
 
 def main():
     port = os.environ.get('MWP_PORT', 8080)
-    if os.environ.get('DYNO'):
+    print os.environ
+    if 'DYNO' in os.environ:
         # Running on Heroku; us $PORT
+        print 'Looks like I\'m on Heroku!'
         port = os.environ.get('PORT')
 
     addon.run(
