@@ -1,1 +1,1 @@
-web: python -m mwp.py
+web: python -m mwp
