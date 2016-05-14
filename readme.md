@@ -64,6 +64,7 @@ python -m mwp
   * `MWP_ADDON_KEY` - The key for this addon
   * `MWP_ADDON_NAME` - The description for this addon
   * `MWP_BASE_URL` - The URL which this addon can be accessed at
+    * *NOTE*: This must not have a trailing `/`!
 * Some plugins need an API key:
   * `GOOGLE_API_KEY` - For searching Youtube
   * `HUKD_API_KEY` - For getting Hot UK Deals
