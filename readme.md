@@ -58,6 +58,7 @@ python -m mwp
 `My Will Prime` is configured via environment variables. The configuration options are:
 * `MWP_HOST` (default: `0.0.0.0`) - The host IP to bind to
 * `MWP_PORT` (default: `8080`) - The post to bind to
+  * When running on Heroku, MWP will automatically use the `PORT` environment variable
 * `MWP_TRIGGER` (default `/mwp`) - The text to prefix most plugin triggers with
 * All the `ac-flask-hipchat` options listed below but prefixed with `MWP_` instead of `AC_`. The options you should set are:
   * `MWP_ADDON_KEY` - The key for this addon
@@ -100,6 +101,7 @@ Configuration is done via environment variables. Any variable prefixed with `AC_
 Some brief notes:
 * When writing a plugin, you can use `%TRIGGER%` in the regex and it will be substituted for the `MWP_TRIGGER` environment variable
 * You can also use `%TRIGGER%` in doc strings
+* [Pythex](http://pythex.org/) is useful for checking your Python regex's
 
 
 ## Todo
