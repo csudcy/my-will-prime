@@ -81,8 +81,6 @@ def room_message():
 
 
 def _process_message(message_data):
-    print '\n' * 5
-    print message_data.message_text
     if message_data.message_text == '/mwp json':
         # Return all the JSON info sent from Hipchat
         # TODO: Does this contain sensitive info?
